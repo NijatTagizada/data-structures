@@ -14,6 +14,7 @@ class LinkedList:
     def __init__(self):
         self.head: Node = None
 
+    # Add data to begining (head)
     def push(self, new_data):
         new_node = Node(new_data)
         new_node.next = self.head
@@ -34,6 +35,7 @@ class LinkedList:
         # 5. make next of prev_node as new_node
         prev_node.next = new_node
 
+    # Add data to end
     def append(self, new_data):
         # 1. Create new node &
         # 2. Put in the data
@@ -45,17 +47,37 @@ class LinkedList:
             self.head = new_node
             return
 
-        # 5. Else traverse till the last node
+        # 4. Else traverse till the last node
         last = self.head
         while last.next:
             last = last.next
 
-        # 6. Change the next of last node
+        # 5. Change the next of last node
         last.next = new_node
+
+    # Delete Node
+    def delete(self, data):
+        if self.head is not None and self.head.data == data:
+            self.head = self.head.next
+            return
+
+        prev_node: Node = self.head
+
+        while prev_node.next:
+            if prev_node.data == data:
+                break
+            elif prev_node.next.data == data:
+                break
+            else:
+                prev_node = prev_node.next
+
+        if prev_node.next is None:
+            return
+
+        prev_node.next = prev_node.next.next
 
     # This function prints contents of linked list
     # starting from head
-
     def printList(self):
         temp = self.head
         while (temp):
@@ -114,11 +136,11 @@ def main():
     +----+------+     +----+------+     +----+------+
     '''
 
-    # Add data to end
     llist.append(4)
-
-    # Add data to begining (head)
     llist.push(5)
+    llist.append(6)
+    
+    llist.delete(6)
 
     llist.printList()
 
