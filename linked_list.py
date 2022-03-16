@@ -20,7 +20,7 @@ class LinkedList:
         new_node.next = self.head
         self.head = new_node
 
-    def insertAfter(self, prev_node, new_data):
+    def insert_after(self, prev_node, new_data):
         # 1. check if the given prev_node exists
         if prev_node is None:
             raise Exception("Previous node can't be null")
@@ -64,9 +64,7 @@ class LinkedList:
         prev_node: Node = self.head
 
         while prev_node.next:
-            if prev_node.data == data:
-                break
-            elif prev_node.next.data == data:
+            if prev_node.next.data == data:
                 break
             else:
                 prev_node = prev_node.next
@@ -76,9 +74,28 @@ class LinkedList:
 
         prev_node.next = prev_node.next.next
 
+    def delete_node(self, position: int):
+        if self.head is None:
+            return
+
+        if position == 0:
+            self.head = self.head.next
+            return
+
+        curr_position = 0
+        prev_node: Node = self.head
+
+        while prev_node.next:
+            curr_position = curr_position+1
+            if curr_position == position:
+                prev_node.next = prev_node.next.next
+                break
+            else:
+                prev_node = prev_node.next
+
     # This function prints contents of linked list
     # starting from head
-    def printList(self):
+    def print_list(self):
         temp = self.head
         while (temp):
             print(temp.data)
@@ -137,12 +154,17 @@ def main():
     '''
 
     llist.append(4)
-    llist.push(5)
     llist.append(6)
-    
-    llist.delete(6)
+    llist.push(5)
 
-    llist.printList()
+    llist.delete(6)
+    llist.print_list()
+
+    print('-'*10, 'Delete Node Position', '-'*10)
+
+    llist.delete_node(position=1)
+
+    llist.print_list()
 
 
 if __name__ == '__main__':
