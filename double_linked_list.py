@@ -48,6 +48,29 @@ class DoublyLinkedList:
         if new_node.next is not None:
             new_node.next.prev = new_node
 
+    # Add data to end
+    def append(self, new_data):
+        # 1. Create new node &
+        # 2. Put in the data
+        new_node = Node(data=new_data)
+
+        # 3. If the Linked List is empty, then make the
+        #    new node as head
+        if self.head is None:
+            self.head = new_node
+            return
+
+        # 4. Else traverse till the last node
+        last = self.head
+        while last.next:
+            last = last.next
+
+        # 5. Change the next of last node
+        last.next = new_node
+        
+        # 6. Make last node as previous of new node 
+        new_node.prev = last
+
     def print_list(self):
         temp = self.head
         while (temp):
@@ -60,6 +83,7 @@ def main():
     dll.push(1)
     dll.push(0)
     dll.insert_after(dll.head, 3)
+    dll.append(2)
 
     dll.print_list()
 
