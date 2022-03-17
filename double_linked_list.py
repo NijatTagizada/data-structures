@@ -1,11 +1,11 @@
 # Node of a doubly linked list
-import re
+from turtle import pos
 
 
 class Node:
     def __init__(self, next=None, prev=None, data=None):
-        self.next = next  # reference to next node in DLL
-        self.prev = prev  # reference to previous node in DLL
+        self.next: Node = next  # reference to next node in DLL
+        self.prev: Node = prev  # reference to previous node in DLL
         self.data = data
 
 
@@ -67,9 +67,39 @@ class DoublyLinkedList:
 
         # 5. Change the next of last node
         last.next = new_node
-        
-        # 6. Make last node as previous of new node 
+
+        # 6. Make last node as previous of new node
         new_node.prev = last
+
+    def get_node(self, position) -> Node:
+        current_position = 0
+        current_node = self.head
+        if position == 0:
+            return self.head
+
+        while current_node.next:
+            current_position = current_position+1
+            current_node = current_node.next
+            if current_position == position:
+                return current_node
+
+    def delete_node(self, delete_node: Node):
+        if self.head is None or delete_node is None:
+            return
+
+        # When deleted_node is head node
+        if self.head == delete_node:
+            self.head = self.head.next
+            return
+
+        # When deleted_node is last node
+        if delete_node.next is None:
+            delete_node.prev.next = None
+            return
+
+        if delete_node.next is not None:
+            delete_node.prev.next = delete_node.next
+            delete_node.next.prev = delete_node.prev
 
     def print_list(self):
         temp = self.head
@@ -84,6 +114,13 @@ def main():
     dll.push(0)
     dll.insert_after(dll.head, 3)
     dll.append(2)
+    dll.append(5)
+
+    dll.print_list()
+    
+    print('-'*10, 'Delete Node Position', '-'*10)
+
+    dll.delete_node(dll.get_node(position=4))
 
     dll.print_list()
 
