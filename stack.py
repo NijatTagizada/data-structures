@@ -2,6 +2,8 @@
 # demonstrate stack implementation
 # using collections.deque
 
+# LIFO (Last In First Out) or FILO (First In Last Out)
+
 from collections import deque
 
 stack = deque()
