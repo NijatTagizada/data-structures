@@ -1,62 +1,112 @@
-from re import I
+# A function to do inorder tree traversal
+def print_inorder(root):
+    if root:
+        print_inorder(root.left)
+
+        print(root.val)
+
+        print_inorder(root.right)
 
 
+# A function to do preorder tree traversal
+def print_preorder(root):
+    if root:
+        print(root.val)
+
+        print_preorder(root.left)
+
+        print_preorder(root.right)
+
+
+# A function to do postorder tree traversal
+def print_postorder(root):
+    if root:
+        print_postorder(root.left)
+
+        print_postorder(root.right)
+
+        print(root.val)
+
+
+def search(root, val):
+    # Base Cases: root is null or val is present at root
+    if root is None or root.val == val:
+        return root
+
+    # val is greater than root's val
+    if root.val < val:
+        return search(root.right, val)
+
+    # val is smaller than root's val
+    return search(root.left, val)
+
+
+def insert(root, val):
+    if root is None:
+        return Node(val)
+    else:
+        if root.val == val:
+            return root
+        elif root.val < val:
+            root.right = insert(root.right, val)
+        else:
+            root.left = insert(root.left, val)
+    return root
+
+def print_tree_diagram(root, val="val", left="left", right="right"):
+    def display(root, val=val, left=left, right=right):
+        """Returns list of strings, width, height, and horizontal coordinate of the root."""
+        # No child.
+        if getattr(root, right) is None and getattr(root, left) is None:
+            line = '%s' % getattr(root, val)
+            width = len(line)
+            height = 1
+            middle = width // 2
+            return [line], width, height, middle
+
+        # Only left child.
+        if getattr(root, right) is None:
+            lines, n, p, x = display(getattr(root, left))
+            s = '%s' % getattr(root, val)
+            u = len(s)
+            first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s
+            second_line = x * ' ' + '/' + (n - x - 1 + u) * ' '
+            shifted_lines = [line + u * ' ' for line in lines]
+            return [first_line, second_line] + shifted_lines, n + u, p + 2, n + u // 2
+
+        # Only right child.
+        if getattr(root, left) is None:
+            lines, n, p, x = display(getattr(root, right))
+            s = '%s' % getattr(root, val)
+            u = len(s)
+            first_line = s + x * '_' + (n - x) * ' '
+            second_line = (u + x) * ' ' + '\\' + (n - x - 1) * ' '
+            shifted_lines = [u * ' ' + line for line in lines]
+            return [first_line, second_line] + shifted_lines, n + u, p + 2, u // 2
+
+        # Two children.
+        left, n, p, x = display(getattr(root, left))
+        right, m, q, y = display(getattr(root, right))
+        s = '%s' % getattr(root, val)
+        u = len(s)
+        first_line = (x + 1) * ' ' + (n - x - 1) * '_' + s + y * '_' + (m - y) * ' '
+        second_line = x * ' ' + '/' + (n - x - 1 + u + y) * ' ' + '\\' + (m - y - 1) * ' '
+        if p < q:
+            left += [n * ' '] * (q - p)
+        elif q < p:
+            right += [m * ' '] * (p - q)
+        zipped_lines = zip(left, right)
+        lines = [first_line, second_line] + [a + u * ' ' + b for a, b in zipped_lines]
+        return lines, n + m + u, max(p, q) + 2, n + u // 2
+
+    lines, *_ = display(root, val, left, right)
+    for line in lines:
+        print(line)
 class Node:
     def __init__(self, val):
         self.left: Node = None
         self.right: Node = None
         self.val = val
-
-    # A function to do inorder tree traversal
-    def print_inorder(self, root):
-        if root:
-            self.print_inorder(root.left)
-
-            print(root.val)
-
-            self.print_inorder(root.right)
-
-    # A function to do preorder tree traversal
-    def print_preorder(self, root):
-        if root:
-            print(root.val)
-
-            self.print_preorder(root.left)
-
-            self.print_preorder(root.right)
-
-    # A function to do postorder tree traversal
-    def print_postorder(self, root):
-        if root:
-            self.print_postorder(root.left)
-
-            self.print_postorder(root.right)
-
-            print(root.val)
-
-    def search(self, root, val):
-        # Base Cases: root is null or val is present at root
-        if root is None or root.val == val:
-            return root
-
-        # val is greater than root's val
-        if root.val < val:
-            return self.search(root.right, val)
-
-        # val is smaller than root's val
-        return self.search(root.left, val)
-
-    def insert(self, root, val):
-        if root is None:
-            return Node(val)
-        else:
-            if root.val == val:
-                return root
-            elif root.val < val:
-                root.right = self.insert(root.right, val)
-            else:
-                root.left = self.insert(root.left, val)
-        return root
 
     #       tree
     #       ----
@@ -115,13 +165,13 @@ def main():
     root.left.right = Node(5)
 
     print("\nInorder traversal of binary tree is")
-    root.print_inorder(root)
+    print_inorder(root)
 
     print("Preorder traversal of binary tree is")
-    root.print_preorder(root)
+    print_preorder(root)
 
     print('Postorder traversal of binary tree is')
-    root.print_postorder(root)
+    print_postorder(root)
 
     print('\nSearching...')
     root2 = Node(8)
@@ -135,18 +185,21 @@ def main():
 
     root2.right.right.left = Node(13)
     root2.right.right.right = Node(22)
-    print(root2.search(root2, 22))
-    print(root2.search(root2, 9))
-    print(root2.search(root2, 4))
+    print(search(root2, 22))
+    print(search(root2, 9))
+    print(search(root2, 4))
 
     print('\nInserting...')
-    root3 = Node(50)
-    root3.insert(root3, 30)
-    root3.insert(root3, 20)
-    root3.insert(root3, 40)
-    root3.insert(root3, 70)
-    root.print_inorder(root3)
-
+    root3 = Node(5)
+    insert(root3, 4)
+    insert(root3, 2)
+    insert(root3, 3)
+    insert(root3, 1)
+    insert(root3, 7)
+    insert(root3, 11)
+    insert(root3, 6)
+    print_tree_diagram(root3)
+      
 
 
 if __name__ == '__main__':
