@@ -1,8 +1,11 @@
+from re import I
+
+
 class Node:
-    def __init__(self, key):
+    def __init__(self, val):
         self.left: Node = None
         self.right: Node = None
-        self.val = key
+        self.val = val
 
     # A function to do inorder tree traversal
     def print_inorder(self, root):
@@ -31,17 +34,29 @@ class Node:
 
             print(root.val)
 
-    def search(self, root, key):
-        # Base Cases: root is null or key is present at root
-        if root is None or root.val == key:
+    def search(self, root, val):
+        # Base Cases: root is null or val is present at root
+        if root is None or root.val == val:
             return root
 
-        # Key is greater than root's key
-        if root.val < key:
-            return self.search(root.right, key)
+        # val is greater than root's val
+        if root.val < val:
+            return self.search(root.right, val)
 
-        # Key is smaller than root's key
-        return self.search(root.left, key)
+        # val is smaller than root's val
+        return self.search(root.left, val)
+
+    def insert(self, root, val):
+        if root is None:
+            return Node(val)
+        else:
+            if root.val == val:
+                return root
+            elif root.val < val:
+                root.right = self.insert(root.right, val)
+            else:
+                root.left = self.insert(root.left, val)
+        return root
 
     #       tree
     #       ----
@@ -123,6 +138,15 @@ def main():
     print(root2.search(root2, 22))
     print(root2.search(root2, 9))
     print(root2.search(root2, 4))
+
+    print('\nInserting...')
+    root3 = Node(50)
+    root3.insert(root3, 30)
+    root3.insert(root3, 20)
+    root3.insert(root3, 40)
+    root3.insert(root3, 70)
+    root.print_inorder(root3)
+
 
 
 if __name__ == '__main__':
