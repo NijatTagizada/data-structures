@@ -105,9 +105,9 @@ def delete(root,val):
     if root is None:
         return root
     
-    # If the key to be deleted
+    # If the val to be deleted
     # is smaller than the root's
-    # key then it lies in  left subtree
+    # val then it lies in  left subtree
     if val < root.val:
         root.left = delete(root.left,val)
     
