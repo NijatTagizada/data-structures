@@ -1,58 +1,3 @@
-# A function to do inorder tree traversal
-def print_inorder(root):
-    if root:
-        print_inorder(root.left)
-
-        print(root.val)
-
-        print_inorder(root.right)
-
-
-# A function to do preorder tree traversal
-def print_preorder(root):
-    if root:
-        print(root.val)
-
-        print_preorder(root.left)
-
-        print_preorder(root.right)
-
-
-# A function to do postorder tree traversal
-def print_postorder(root):
-    if root:
-        print_postorder(root.left)
-
-        print_postorder(root.right)
-
-        print(root.val)
-
-
-def search(root, val):
-    # Base Cases: root is null or val is present at root
-    if root is None or root.val == val:
-        return root
-
-    # val is greater than root's val
-    if root.val < val:
-        return search(root.right, val)
-
-    # val is smaller than root's val
-    return search(root.left, val)
-
-
-def insert(root, val):
-    if root is None:
-        return Node(val)
-    else:
-        if root.val == val:
-            return root
-        elif root.val < val:
-            root.right = insert(root.right, val)
-        else:
-            root.left = insert(root.left, val)
-    return root
-
 def print_tree_diagram(root, val="val", left="left", right="right"):
     def display(root, val=val, left=left, right=right):
         """Returns list of strings, width, height, and horizontal coordinate of the root."""
@@ -102,6 +47,117 @@ def print_tree_diagram(root, val="val", left="left", right="right"):
     lines, *_ = display(root, val, left, right)
     for line in lines:
         print(line)
+
+
+# A function to do inorder tree traversal
+def print_inorder(root):
+    if root:
+        print_inorder(root.left)
+
+        print(root.val)
+
+        print_inorder(root.right)
+
+
+# A function to do preorder tree traversal
+def print_preorder(root):
+    if root:
+        print(root.val)
+
+        print_preorder(root.left)
+
+        print_preorder(root.right)
+
+
+# A function to do postorder tree traversal
+def print_postorder(root):
+    if root:
+        print_postorder(root.left)
+
+        print_postorder(root.right)
+
+        print(root.val)
+
+
+def search(root, val):
+    # Base Cases: root is null or val is present at root
+    if root is None or root.val == val:
+        return root
+
+    # val is greater than root's val
+    if root.val < val:
+        return search(root.right, val)
+
+    # val is smaller than root's val
+    return search(root.left, val)
+
+def minValueNode(node):
+    current = node
+ 
+    # loop down to find the leftmost leaf
+    while(current.left is not None):
+        current = current.left
+ 
+    return current
+ 
+
+def delete(root,val):
+    if root is None:
+        return root
+    
+    # If the key to be deleted
+    # is smaller than the root's
+    # key then it lies in  left subtree
+    if val < root.val:
+        root.left = delete(root.left,val)
+    
+    # If the val to be delete
+    # is greater than the root's val
+    # then it lies in right subtree
+    elif(val > root.val):
+        root.right = delete(root.right, val)
+    
+    # If val is same as root's val, then this is the node
+    # to be deleted
+    else:
+        # Node with only one child or no child
+        if root.left is None:
+            temp = root.right
+            root = None
+            return temp
+ 
+        elif root.right is None:
+            temp = root.left
+            root = None
+            return temp
+ 
+        # Node with two children:
+        # Get the inorder successor
+        # (smallest in the right subtree)
+        temp = minValueNode(root.right)
+ 
+        # Copy the inorder successor's
+        # content to this node
+        root.val = temp.val
+ 
+        # Delete the inorder successor
+        root.right = delete(root.right, temp.val)
+ 
+    return root
+    
+
+def insert(root, val):
+    if root is None:
+        return Node(val)
+    else:
+        if root.val == val:
+            return root
+        elif root.val < val:
+            root.right = insert(root.right, val)
+        else:
+            root.left = insert(root.left, val)
+    return root
+
 class Node:
     def __init__(self, val):
         self.left: Node = None
@@ -198,6 +254,11 @@ def main():
     insert(root3, 7)
     insert(root3, 11)
     insert(root3, 6)
+    print_tree_diagram(root3)
+
+    print('\nDeleting...')
+    delete(root3, 4)
+    delete(root3, 5)
     print_tree_diagram(root3)
       
 
