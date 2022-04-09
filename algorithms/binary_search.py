@@ -4,7 +4,6 @@ def binary_search(list, n):
     mid = 0  
   
     while low <= high:  
-        print(low)
         # for get integer result   
         mid = (high + low) // 2  
   
@@ -50,8 +49,8 @@ def binary_search_recursive(list1, low, high, n):
 
 
 
-arr = [2, 3, 4, 10,15,22,24]
+arr = [2, 3, 4, 10,15,22,24 ]
 
 
-print('Answer: ', binary_search(arr, 4))
-# print(binary_search_recursive(arr,0,len(arr),22))
+print('Answer: ', binary_search(arr, 231))
+print('Answer: ', binary_search_recursive(arr,0,len(arr),22))
