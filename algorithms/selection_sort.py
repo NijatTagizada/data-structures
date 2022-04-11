@@ -1,7 +1,4 @@
-data = [64, 63, 1, 25, 2, 12, 22, 11]
-
-
-def selection_sort():
+def selection_sort(data):
     for i in range(len(data)):
 
         min_index = i
@@ -13,5 +10,7 @@ def selection_sort():
         print(data)
 
 
-selection_sort()
+data = [3, 64, 63, 1, 25, 2, 12, 22, 11]
+
+selection_sort(data)
 print('Answer: ', data)
