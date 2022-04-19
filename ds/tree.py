@@ -54,7 +54,7 @@ def print_inorder(root):
     if root:
         print_inorder(root.left)
 
-        print(root.val)
+        print(root.val, end=', ')
 
         print_inorder(root.right)
 
@@ -62,7 +62,7 @@ def print_inorder(root):
 # A function to do preorder tree traversal
 def print_preorder(root):
     if root:
-        print(root.val)
+        print(root.val, end=', ')
 
         print_preorder(root.left)
 
@@ -76,7 +76,7 @@ def print_postorder(root):
 
         print_postorder(root.right)
 
-        print(root.val)
+        print(root.val, end=', ')
 
 
 def search(root, val):
@@ -220,13 +220,13 @@ def main():
 
     root.left.right = Node(5)
 
-    print("\nInorder traversal of binary tree is")
+    print("\nInorder traversal of binary tree is",end='-> ')
     print_inorder(root)
 
-    print("Preorder traversal of binary tree is")
+    print("\nPreorder traversal of binary tree is",end='-> ')
     print_preorder(root)
 
-    print('Postorder traversal of binary tree is')
+    print('\nPostorder traversal of binary tree is',end='-> ')
     print_postorder(root)
 
     print('\nSearching...')
@@ -255,6 +255,7 @@ def main():
     insert(root3, 11)
     insert(root3, 6)
     print_tree_diagram(root3)
+    print_inorder(root3)
 
     print('\nDeleting...')
     delete(root3, 4)
