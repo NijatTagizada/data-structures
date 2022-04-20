@@ -16,6 +16,7 @@ def partition(array, low, high):
  
       # Swapping element at i with element at j
       (array[i], array[j]) = (array[j], array[i])
+  print(array)
  
   # Swap the pivot element with the greater element specified by i
   (array[i + 1], array[high]) = (array[high], array[i + 1])
@@ -39,9 +40,8 @@ def quick_sort(array, low, high):
     quick_sort(array, pi + 1, high)
  
    
-         
-# Driver code
-array = [ 10, 7, 8, 9, 1, 5]
-quick_sort(array, 0, len(array) - 1)
- 
-print(f'Sorted array: {array}')
+
+
+data = [3, 64, 63, 1, 25, 2, 12, 22, 11]
+quick_sort(data, 0, len(data) - 1)
+print("Answer: ", data)
