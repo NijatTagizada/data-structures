@@ -9,7 +9,7 @@ merges the two sorted sub-arrays into one
 
 def merge_sort(arr):
     if len(arr) > 1:
-  
+        print(arr)
          # Finding the mid of the array
         mid = len(arr)//2
   
@@ -36,6 +36,7 @@ def merge_sort(arr):
                 arr[k] = R[j]
                 j += 1
             k += 1
+            
   
         # Checking if any element was left
         while i < len(L):
