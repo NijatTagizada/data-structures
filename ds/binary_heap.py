@@ -1,19 +1,44 @@
-# Max-Heap data structure in Python
 
-def heapify(arr, n, i):
+'''
+Heap data structure is a complete binary tree that satisfies the heap property, where any given node is
+
+1) always greater than its child node/s and the key of the root node is the largest among all other nodes.
+This property is also called max heap property.
+
+2) always smaller than the child node/s and the key of the root node is the smallest among all other nodes.
+This property is also called min heap property.
+
+Examples of Min Heap:
+
+            10                      10
+         /      \               /       \  
+       20        100          15         30  
+      /                      /  \        /  \
+    30                     40    50    100   40
+    
+
+Examples of Max Heap:
+                     100
+                  /       \  
+                90         60
+               /  \       /  \
+             80    70    50    40
+'''
+
+def heapify(arr, size, i):
     largest = i
     l = 2 * i + 1
     r = 2 * i + 2 
     
-    if l < n and arr[i] < arr[l]:
+    if l < size and arr[i] < arr[l]:
         largest = l
     
-    if r < n and arr[largest] < arr[r]:
+    if r < size and arr[largest] < arr[r]:
         largest = r
     
     if largest != i:
         arr[i],arr[largest] = arr[largest],arr[i]
-        heapify(arr, n, largest)
+        heapify(arr, size, largest)
 
 def insert(array, newNum):
     size = len(array)
